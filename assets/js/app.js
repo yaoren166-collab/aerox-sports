@@ -1104,6 +1104,171 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Customer Service (Live Chat Support)
+  function setupCustomerSupport() {
+    const openBtn = document.getElementById('support-open-btn');
+    const closeBtn = document.getElementById('support-close-btn');
+    const chatWindow = document.getElementById('support-chat-window');
+    const chatInput = document.getElementById('support-chat-input');
+    const sendBtn = document.getElementById('support-send-btn');
+    const messagesContainer = document.getElementById('support-messages');
+    const quickChips = document.querySelectorAll('.support-chip');
+
+    if (!chatWindow) return;
+
+    function toggleChat(show) {
+      if (show) {
+        chatWindow.classList.remove('hidden');
+        chatWindow.classList.add('flex');
+        chatInput?.focus();
+      } else {
+        chatWindow.classList.add('hidden');
+        chatWindow.classList.remove('flex');
+      }
+    }
+
+    openBtn?.addEventListener('click', () => toggleChat(true));
+    closeBtn?.addEventListener('click', () => toggleChat(false));
+
+    function appendMessage(text, isUser = false) {
+      if (!messagesContainer) return;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} mb-3`;
+      
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      if (isUser) {
+        msgDiv.innerHTML = `
+          <div class="max-w-[85%] bg-[#CCFF00] text-black rounded-2xl rounded-tr-none px-3.5 py-2.5 shadow-md">
+            <p class="text-xs font-semibold leading-relaxed">${text}</p>
+            <span class="block text-[10px] text-black/60 text-right mt-1 font-mono">${timeStr}</span>
+          </div>
+        `;
+      } else {
+        msgDiv.innerHTML = `
+          <div class="flex items-start gap-2 max-w-[90%]">
+            <div class="w-7 h-7 rounded-full bg-[#12141A] border border-[#CCFF00]/40 flex items-center justify-center flex-shrink-0 text-[#CCFF00] text-[10px] font-black shadow">
+              AX
+            </div>
+            <div class="bg-[#181B22] border border-white/10 text-white rounded-2xl rounded-tl-none px-3.5 py-2.5 shadow-md">
+              <div class="text-xs leading-relaxed space-y-1.5 text-slate-200">${text}</div>
+              <span class="block text-[10px] text-slate-500 mt-1 font-mono">${timeStr}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const typingDiv = document.createElement('div');
+      typingDiv.id = 'support-typing';
+      typingDiv.className = 'flex items-center gap-2 mb-3';
+      typingDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-[#12141A] border border-[#CCFF00]/40 flex items-center justify-center flex-shrink-0 text-[#CCFF00] text-[10px] font-black">
+          AX
+        </div>
+        <div class="bg-[#181B22] border border-white/10 rounded-2xl rounded-tl-none px-4 py-3 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00] typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00] typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00] typing-dot"></span>
+        </div>
+      `;
+      messagesContainer.appendChild(typingDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      document.getElementById('support-typing')?.remove();
+    }
+
+    function processUserInput(inputStr) {
+      const text = (inputStr || '').trim();
+      if (!text) return;
+      
+      appendMessage(text, true);
+      if (chatInput) chatInput.value = '';
+
+      showTypingIndicator();
+
+      setTimeout(() => {
+        removeTypingIndicator();
+        generateSupportReply(text);
+      }, 550);
+    }
+
+    function generateSupportReply(query) {
+      const q = query.toLowerCase();
+
+      if (q.includes('ggg777') || q.includes('3折') || q.includes('折') || q.includes('優惠') || q.includes('代碼') || q.includes('coupon') || q.includes('便宜')) {
+        appendMessage(`
+          <p class="font-bold text-[#CCFF00]">🎉 限時 3 折狂歡進行中！</p>
+          <p>全館結帳輸入專屬代碼 <strong class="text-white font-mono bg-black/40 px-1.5 py-0.5 rounded border border-[#CCFF00]/40">GGG777</strong> 即可享有 <strong class="text-[#CCFF00]">70% OFF (結帳金額直接打 3 折)</strong>！</p>
+          <p>滿 NT$ 2,500 再享免運費。</p>
+          <div class="pt-2">
+            <button onclick="window.aeroxApp.applyCouponCode('GGG777'); window.aeroxApp.openCartDrawer();" class="px-3 py-1.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black text-xs rounded-lg uppercase shadow-lg shadow-[#CCFF00]/20 cursor-pointer">
+              🔥 點此一鍵套用 GGG777 享 3 折
+            </button>
+          </div>
+        `);
+      } else if (q.includes('尺寸') || q.includes('碼') || q.includes('大小') || q.includes('楦') || q.includes('寬')) {
+        appendMessage(`
+          <p class="font-bold text-white">📏 AEROX 官方尺寸選購指南：</p>
+          <p>• <strong>跑鞋/球鞋系列</strong>：標準亞洲寬楦。平常穿幾號就選幾號 (標準 US 碼)；若跑馬拉松或習慣穿厚襪，建議<strong>大半號 (+0.5 碼)</strong>。</p>
+          <p>• <strong>服飾與壓縮衣</strong>：高彈加壓緊身設計，若偏好寬鬆休閒請選大一個尺碼。</p>
+          <p>• 官方提供 <strong>30 天免費退換尺碼</strong> 保障！</p>
+        `);
+      } else if (q.includes('運費') || q.includes('免運') || q.includes('配送') || q.includes('天到') || q.includes('出貨') || q.includes('多久')) {
+        appendMessage(`
+          <p class="font-bold text-white">🚚 配送與免運時效：</p>
+          <p>• <strong>免運門檻</strong>：單筆滿 <strong class="text-[#CCFF00]">NT$ 2,500 即享免運</strong>（未滿運費 NT$ 150）。</p>
+          <p>• <strong>配送速度</strong>：下單後 24 小時內出貨，台灣本島約 <strong>1~2 個工作天</strong> 黑貓宅配到府或超商取件！</p>
+        `);
+      } else if (q.includes('退') || q.includes('換') || q.includes('保固') || q.includes('保修')) {
+        appendMessage(`
+          <p class="font-bold text-[#00F0FF]">🛡️ 30 天無條件試跑安心保障：</p>
+          <p>AEROX 堅持頂級品質！即使實際穿上下地實測跑步，只要 30 天內覺得不合適，均可申請全額退換。</p>
+          <p>全系列碳板推進板享有原廠結構防斷裂保證！</p>
+        `);
+      } else if (q.includes('真人') || q.includes('專人') || q.includes('人工') || q.includes('電話') || q.includes('專員')) {
+        appendMessage(`
+          <p class="font-bold text-[#CCFF00]">🧑‍💼 已連線專屬真人客服專員！</p>
+          <p>在線專員：<strong>Alex (AEROX 運動裝備工程師)</strong></p>
+          <p>• 客服專線：<strong>0800-888-AEROX</strong></p>
+          <p>• 服務時間：週一至週日 09:00 - 22:00</p>
+          <p>您也可以直接在此留下手機號碼或問題，專員將在 10 分鐘內為您服務！</p>
+        `);
+      } else {
+        appendMessage(`
+          <p>感謝您的提問！AEROX 客服中心為您提供全天候支援。</p>
+          <p>您可以：</p>
+          <p>1. 領取 3 折尊榮代碼 <strong class="text-[#CCFF00]">GGG777</strong>。</p>
+          <p>2. 前往首頁使用「智能選裝備顧問 (Gear Finder)」。</p>
+          <p>3. 點選下方快速問題按鈕或輸入「真人客服」！</p>
+        `);
+      }
+    }
+
+    sendBtn?.addEventListener('click', () => processUserInput(chatInput.value));
+    chatInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        processUserInput(chatInput.value);
+      }
+    });
+
+    quickChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const query = chip.getAttribute('data-query') || chip.textContent.trim();
+        processUserInput(query);
+      });
+    });
+
+    window._aeroxToggleChat = toggleChat;
+  }
+
   // Global Navigation & UI Bindings
   document.getElementById('cart-open-btn')?.addEventListener('click', openCartDrawer);
   document.getElementById('cart-close-btn')?.addEventListener('click', closeCartDrawer);
@@ -1127,6 +1292,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addToCart,
     toggleWishlist,
     applyCouponCode,
+    openSupport: () => window._aeroxToggleChat && window._aeroxToggleChat(true),
+    closeSupport: () => window._aeroxToggleChat && window._aeroxToggleChat(false),
     removeCoupon: () => {
       state.appliedCoupon = null;
       state.appliedCouponCode = null;
@@ -1144,6 +1311,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSearch();
   setupQuiz();
   setupCoupons();
+  setupCustomerSupport();
   setupCheckout();
   setupCurrencyAndLang();
   setupNewsletter();

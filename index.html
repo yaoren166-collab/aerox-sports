@@ -78,16 +78,13 @@
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-bold tracking-wide">
+      <nav class="hidden xl:flex items-center gap-7 text-sm font-bold tracking-wide">
         <a href="#products-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
-          本季新品
+          運動全品項
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#CCFF00] transition-all group-hover:w-full"></span>
         </a>
-        <a href="#products-section" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='running')" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
-          路跑競速
-        </a>
-        <a href="#products-section" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='training')" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
-          體能訓練
+        <a href="#products-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          7 大運動專區
         </a>
         <a href="#tech-labs" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
@@ -96,9 +93,10 @@
         <a href="#gear-finder-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
           智能裝備顧問
         </a>
-        <a href="#athletes-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
-          簽約運動員
-        </a>
+        <button type="button" onclick="window.aeroxApp && window.aeroxApp.openSupport()" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 flex items-center gap-1.5 font-bold cursor-pointer">
+          <span class="w-2 h-2 rounded-full bg-[#CCFF00] animate-ping"></span>
+          線上客服
+        </button>
       </nav>
 
       <!-- Right Utility Actions -->
@@ -621,6 +619,7 @@
         <div>
           <h4 class="text-xs font-black uppercase text-white tracking-wider mb-4">服務支援</h4>
           <ul class="space-y-2.5">
+            <li><button type="button" onclick="window.aeroxApp && window.aeroxApp.openSupport()" class="hover:text-[#CCFF00] transition-colors flex items-center gap-1.5 cursor-pointer"><span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00]"></span>24H 線上專屬客服</button></li>
             <li><a href="#" class="hover:text-[#CCFF00] transition-colors">30 天免費退換申請</a></li>
             <li><a href="#" class="hover:text-[#CCFF00] transition-colors">訂單即時追蹤查詢</a></li>
             <li><a href="#" class="hover:text-[#CCFF00] transition-colors">國際鞋碼尺寸對照</a></li>
@@ -805,10 +804,92 @@
   </div>
 
   <!-- ================= TOAST NOTIFICATION MOUNT ================= -->
-  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+  <div id="toast-container" class="fixed top-24 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- ================= CUSTOMER SERVICE FLOATING LAUNCHER (客服) ================= -->
+  <button id="support-open-btn" class="fixed bottom-6 right-6 z-40 px-4 py-3 bg-[#12141A] hover:bg-[#1A1D26] border border-[#CCFF00]/50 hover:border-[#CCFF00] rounded-full shadow-2xl shadow-black/80 flex items-center gap-2.5 text-white transition-all duration-300 transform hover:scale-105 group cursor-pointer" title="聯繫線上專屬客服">
+    <div class="relative">
+      <svg class="w-5 h-5 text-[#CCFF00] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+      </svg>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#CCFF00] rounded-full animate-ping"></span>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#CCFF00] rounded-full"></span>
+    </div>
+    <div class="flex flex-col text-left">
+      <span class="text-xs font-black tracking-wide text-white group-hover:text-[#CCFF00] transition-colors leading-none">線上客服</span>
+      <span class="text-[9px] text-[#CCFF00] font-bold font-mono leading-none mt-1">24H 在線中</span>
+    </div>
+  </button>
+
+  <!-- ================= CUSTOMER SERVICE CHAT WINDOW (客服對話視窗) ================= -->
+  <div id="support-chat-window" class="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-[380px] bg-[#101217] border border-white/15 rounded-3xl shadow-2xl flex-col overflow-hidden hidden animate-chat-open">
+    <!-- Header -->
+    <div class="p-4 bg-gradient-to-r from-[#141720] via-[#1E2330] to-[#141720] border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="relative w-9 h-9 rounded-full bg-[#12141a] border border-[#CCFF00]/40 flex items-center justify-center text-[#CCFF00] font-black text-xs">
+          AX
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#101217]"></span>
+        </div>
+        <div>
+          <h4 class="text-xs font-black text-white tracking-wide flex items-center gap-1.5">
+            AEROX 官方客服中心
+            <span class="text-[9px] bg-[#CCFF00]/20 text-[#CCFF00] px-1.5 py-0.5 rounded font-mono font-bold">官方認證</span>
+          </h4>
+          <p class="text-[10px] text-slate-400">平均 5 秒即時回覆 • 真人與智能小幫手</p>
+        </div>
+      </div>
+      <button id="support-close-btn" class="w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+        ✕
+      </button>
+    </div>
+
+    <!-- Quick Action Inquiry Chips -->
+    <div class="p-3 bg-[#0D0F14] border-b border-white/5 overflow-x-auto flex items-center gap-1.5 no-scrollbar text-[11px]">
+      <button type="button" class="support-chip flex-shrink-0 px-2.5 py-1 rounded-full bg-[#CCFF00]/10 hover:bg-[#CCFF00]/25 text-[#CCFF00] border border-[#CCFF00]/30 font-bold transition-colors cursor-pointer" data-query="如何使用 3 折代碼 GGG777？">
+        🎟️ 領取 3 折 (GGG777)
+      </button>
+      <button type="button" class="support-chip flex-shrink-0 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors cursor-pointer" data-query="跑鞋尺寸如何選？">
+        📏 尺寸指南
+      </button>
+      <button type="button" class="support-chip flex-shrink-0 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors cursor-pointer" data-query="免運門檻與配送時間？">
+        🚚 免運與配送
+      </button>
+      <button type="button" class="support-chip flex-shrink-0 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors cursor-pointer" data-query="30天試跑無條件退貨流程？">
+        🛡️ 30天試跑退貨
+      </button>
+      <button type="button" class="support-chip flex-shrink-0 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors cursor-pointer" data-query="轉接專屬真人客服專員">
+        🧑‍💼 轉接真人客服
+      </button>
+    </div>
+
+    <!-- Chat Messages Scroll Container -->
+    <div id="support-messages" class="h-80 overflow-y-auto p-4 space-y-3 bg-[#0B0C10]/90">
+      <!-- Initial Welcome Message from Bot -->
+      <div class="flex items-start gap-2 max-w-[90%]">
+        <div class="w-7 h-7 rounded-full bg-[#12141A] border border-[#CCFF00]/40 flex items-center justify-center flex-shrink-0 text-[#CCFF00] text-[10px] font-black shadow">
+          AX
+        </div>
+        <div class="bg-[#181B22] border border-white/10 text-white rounded-2xl rounded-tl-none px-3.5 py-2.5 shadow-md">
+          <div class="text-xs leading-relaxed space-y-1.5 text-slate-200">
+            <p>👋 您好！歡迎光臨 <strong>AEROX 官方旗艦店</strong>。</p>
+            <p>我是您的專屬運動裝備顧問。全館現正提供 <span class="text-[#CCFF00] font-bold">3 折特惠 (代碼 GGG777)</span>，有任何運動裝備選購或訂單問題請隨時告訴我！</p>
+          </div>
+          <span class="block text-[10px] text-slate-500 mt-1 font-mono">剛剛</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <div class="p-3 bg-[#12141A] border-t border-white/10 flex items-center gap-2">
+      <input id="support-chat-input" type="text" placeholder="輸入問題（例如：尺寸、折扣、運費）..." class="flex-1 px-3.5 py-2.5 bg-black/50 border border-white/10 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#CCFF00]">
+      <button id="support-send-btn" class="w-9 h-9 rounded-xl bg-[#CCFF00] hover:bg-[#b8e600] active:scale-95 text-black flex items-center justify-center transition-all flex-shrink-0 shadow cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </button>
+    </div>
+  </div>
 
   <!-- Scripts (Versioned for cache-busting) -->
-  <script src="assets/js/data.js?v=20261107-1103"></script>
-  <script src="assets/js/app.js?v=20261107-1103"></script>
+  <script src="assets/js/data.js?v=20261107-1120"></script>
+  <script src="assets/js/app.js?v=20261107-1120"></script>
 </body>
 </html>

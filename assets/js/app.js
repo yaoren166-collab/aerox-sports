@@ -1104,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Customer Service (Live Chat Support)
+  // Customer Service (JOJO AI Chat Support with Google Apps Script + OpenRouter)
   function setupCustomerSupport() {
     const openBtn = document.getElementById('support-open-btn');
     const closeBtn = document.getElementById('support-close-btn');
@@ -1113,8 +1113,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('support-send-btn');
     const messagesContainer = document.getElementById('support-messages');
     const quickChips = document.querySelectorAll('.support-chip');
+    const gasConfigBtn = document.getElementById('support-gas-config-btn');
+    const gasStatusIndicator = document.getElementById('support-gas-indicator');
 
     if (!chatWindow) return;
+
+    let chatHistory = [];
+    let gasUrl = localStorage.getItem('aerox_gas_url') || '';
+
+    function updateGasStatus() {
+      if (gasStatusIndicator) {
+        if (gasUrl) {
+          gasStatusIndicator.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> GAS-AI 大腦已連線`;
+          gasStatusIndicator.className = "text-[9px] text-emerald-400 font-mono font-bold flex items-center gap-1";
+        } else {
+          gasStatusIndicator.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-[#CCFF00]"></span> 替身使者模式 (點擊設定 GAS)`;
+          gasStatusIndicator.className = "text-[9px] text-[#CCFF00] font-mono font-bold flex items-center gap-1 cursor-pointer hover:underline";
+        }
+      }
+    }
+
+    updateGasStatus();
+
+    gasConfigBtn?.addEventListener('click', () => {
+      promptGasUrlConfig();
+    });
+
+    gasStatusIndicator?.addEventListener('click', () => {
+      if (!gasUrl) promptGasUrlConfig();
+    });
+
+    function promptGasUrlConfig() {
+      const current = localStorage.getItem('aerox_gas_url') || '';
+      const input = prompt(
+        "【AEROX x JOJO AI 後端設定】\n請貼上您的 Google Apps Script 網路應用程式 URL（網址格式如 https://script.google.com/macros/s/.../exec）：\n(若尚未建立可先留空，將使用本機替身智能模式)",
+        current
+      );
+      if (input !== null) {
+        const clean = input.trim();
+        if (clean) {
+          localStorage.setItem('aerox_gas_url', clean);
+          gasUrl = clean;
+          showToast("已成功綁定 Google Apps Script AI 後端！");
+        } else {
+          localStorage.removeItem('aerox_gas_url');
+          gasUrl = '';
+          showToast("已重置為本機替身使者模式。");
+        }
+        updateGasStatus();
+      }
+    }
 
     function toggleChat(show) {
       if (show) {
@@ -1147,8 +1195,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         msgDiv.innerHTML = `
           <div class="flex items-start gap-2 max-w-[90%]">
-            <div class="w-7 h-7 rounded-full bg-[#12141A] border border-[#CCFF00]/40 flex items-center justify-center flex-shrink-0 text-[#CCFF00] text-[10px] font-black shadow">
-              AX
+            <div class="w-8 h-8 rounded-full border border-[#CCFF00]/50 overflow-hidden flex-shrink-0 shadow-lg shadow-[#CCFF00]/10 bg-[#141720]">
+              <img src="assets/images/jojo-avatar.svg" alt="JOJO" class="w-full h-full object-cover">
             </div>
             <div class="bg-[#181B22] border border-white/10 text-white rounded-2xl rounded-tl-none px-3.5 py-2.5 shadow-md">
               <div class="text-xs leading-relaxed space-y-1.5 text-slate-200">${text}</div>
@@ -1167,8 +1215,8 @@ document.addEventListener('DOMContentLoaded', () => {
       typingDiv.id = 'support-typing';
       typingDiv.className = 'flex items-center gap-2 mb-3';
       typingDiv.innerHTML = `
-        <div class="w-7 h-7 rounded-full bg-[#12141A] border border-[#CCFF00]/40 flex items-center justify-center flex-shrink-0 text-[#CCFF00] text-[10px] font-black">
-          AX
+        <div class="w-8 h-8 rounded-full border border-[#CCFF00]/50 overflow-hidden flex-shrink-0 bg-[#141720]">
+          <img src="assets/images/jojo-avatar.svg" alt="JOJO" class="w-full h-full object-cover">
         </div>
         <div class="bg-[#181B22] border border-white/10 rounded-2xl rounded-tl-none px-4 py-3 flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00] typing-dot"></span>
@@ -1184,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('support-typing')?.remove();
     }
 
-    function processUserInput(inputStr) {
+    async function processUserInput(inputStr) {
       const text = (inputStr || '').trim();
       if (!text) return;
       
@@ -1193,60 +1241,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showTypingIndicator();
 
+      // Check if Google Apps Script Backend URL is configured
+      if (gasUrl) {
+        try {
+          const response = await fetch(gasUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8' // avoids CORS preflight OPTIONS in GAS
+            },
+            body: JSON.stringify({
+              message: text,
+              history: chatHistory
+            })
+          });
+
+          const result = await response.json();
+          removeTypingIndicator();
+
+          if (result && result.reply) {
+            chatHistory.push({ role: 'user', content: text });
+            chatHistory.push({ role: 'assistant', content: result.reply });
+            appendMessage(result.reply);
+            return;
+          }
+        } catch (err) {
+          console.warn("GAS backend error, switching to fallback JOJO engine:", err);
+        }
+      }
+
+      // Fallback: Local High-Fidelity JOJO AI Engine
       setTimeout(() => {
         removeTypingIndicator();
-        generateSupportReply(text);
-      }, 550);
+        generateJojoLocalReply(text);
+      }, 500);
     }
 
-    function generateSupportReply(query) {
+    function generateJojoLocalReply(query) {
       const q = query.toLowerCase();
 
       if (q.includes('ggg777') || q.includes('3折') || q.includes('折') || q.includes('優惠') || q.includes('代碼') || q.includes('coupon') || q.includes('便宜')) {
         appendMessage(`
-          <p class="font-bold text-[#CCFF00]">🎉 限時 3 折狂歡進行中！</p>
-          <p>全館結帳輸入專屬代碼 <strong class="text-white font-mono bg-black/40 px-1.5 py-0.5 rounded border border-[#CCFF00]/40">GGG777</strong> 即可享有 <strong class="text-[#CCFF00]">70% OFF (結帳金額直接打 3 折)</strong>！</p>
-          <p>滿 NT$ 2,500 再享免運費。</p>
+          <p class="font-bold text-[#CCFF00]">【ゴゴゴ...】這個折扣...毫無破綻！</p>
+          <p>看好了！專屬替身折扣代碼 <strong class="text-white font-mono bg-black/60 px-2 py-0.5 rounded border border-[#CCFF00]/60">GGG777</strong> 將為你斬斷 <strong class="text-[#CCFF00]">70% 的價格障礙（直接打 3 折）</strong>！</p>
+          <p>滿 NT$ 2,500 再享免運費，已經沒有任何理由能阻止你打破個人 PB 了！</p>
           <div class="pt-2">
-            <button onclick="window.aeroxApp.applyCouponCode('GGG777'); window.aeroxApp.openCartDrawer();" class="px-3 py-1.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black text-xs rounded-lg uppercase shadow-lg shadow-[#CCFF00]/20 cursor-pointer">
-              🔥 點此一鍵套用 GGG777 享 3 折
+            <button onclick="window.aeroxApp.applyCouponCode('GGG777'); window.aeroxApp.openCartDrawer();" class="px-3.5 py-2 bg-[#CCFF00] hover:bg-[#b8e600] active:scale-95 text-black font-black text-xs rounded-xl uppercase shadow-xl shadow-[#CCFF00]/25 cursor-pointer flex items-center gap-1.5">
+              🔥 點此一鍵注入 GGG777 替身能力 (享 3 折)
             </button>
           </div>
         `);
       } else if (q.includes('尺寸') || q.includes('碼') || q.includes('大小') || q.includes('楦') || q.includes('寬')) {
         appendMessage(`
-          <p class="font-bold text-white">📏 AEROX 官方尺寸選購指南：</p>
-          <p>• <strong>跑鞋/球鞋系列</strong>：標準亞洲寬楦。平常穿幾號就選幾號 (標準 US 碼)；若跑馬拉松或習慣穿厚襪，建議<strong>大半號 (+0.5 碼)</strong>。</p>
-          <p>• <strong>服飾與壓縮衣</strong>：高彈加壓緊身設計，若偏好寬鬆休閒請選大一個尺碼。</p>
-          <p>• 官方提供 <strong>30 天免費退換尺碼</strong> 保障！</p>
+          <p class="font-bold text-white">【白金精準度】AEROX 官方尺寸鑑定：</p>
+          <p>• <strong>跑鞋/球鞋戰靴</strong>：全系列採用專屬亞洲標準寬楦，完全釋放前掌！日常訓練按正常 US 碼即可；若挑戰全馬競速或慣穿厚襪，建議<strong>大半號 (+0.5 碼)</strong>。</p>
+          <p>• <strong>機能壓縮衣/服飾</strong>：漸進加壓鎖定肌群，若追求寬鬆日常感請選大一號。</p>
+          <p>• 記住！官方享有 <strong>30 天免費退換尺碼保障</strong>，無後顧之憂！ドドド...</p>
         `);
       } else if (q.includes('運費') || q.includes('免運') || q.includes('配送') || q.includes('天到') || q.includes('出貨') || q.includes('多久')) {
         appendMessage(`
-          <p class="font-bold text-white">🚚 配送與免運時效：</p>
-          <p>• <strong>免運門檻</strong>：單筆滿 <strong class="text-[#CCFF00]">NT$ 2,500 即享免運</strong>（未滿運費 NT$ 150）。</p>
-          <p>• <strong>配送速度</strong>：下單後 24 小時內出貨，台灣本島約 <strong>1~2 個工作天</strong> 黑貓宅配到府或超商取件！</p>
+          <p class="font-bold text-white">【極限光速】配送與物流時效：</p>
+          <p>• <strong>免運門檻</strong>：單筆滿 <strong class="text-[#CCFF00]">NT$ 2,500 即享免運</strong>（未滿門檻運費 NT$ 150）。</p>
+          <p>• <strong>出貨時效</strong>：下單後 24 小時內火速出庫，台灣本島約 <strong>1~2 個工作天</strong> 黑貓宅急便送到你手上！</p>
         `);
       } else if (q.includes('退') || q.includes('換') || q.includes('保固') || q.includes('保修')) {
         appendMessage(`
-          <p class="font-bold text-[#00F0FF]">🛡️ 30 天無條件試跑安心保障：</p>
-          <p>AEROX 堅持頂級品質！即使實際穿上下地實測跑步，只要 30 天內覺得不合適，均可申請全額退換。</p>
-          <p>全系列碳板推進板享有原廠結構防斷裂保證！</p>
+          <p class="font-bold text-[#00F0FF]">【黃金體驗】30 天無條件試跑保障：</p>
+          <p>「真是夠了... AEROX 對品質有絕對的自信！」即使穿上下地實測奔馳，只要 30 天內覺得不合腳，全額免費退換！全系列碳板跑鞋更享原廠防斷裂終身保固！</p>
         `);
       } else if (q.includes('真人') || q.includes('專人') || q.includes('人工') || q.includes('電話') || q.includes('專員')) {
         appendMessage(`
-          <p class="font-bold text-[#CCFF00]">🧑‍💼 已連線專屬真人客服專員！</p>
-          <p>在線專員：<strong>Alex (AEROX 運動裝備工程師)</strong></p>
+          <p class="font-bold text-[#CCFF00]">【替身使者連線中】專屬真人顧問接聽！</p>
+          <p>在線專員：<strong>Alex (運動力學認證工程師)</strong></p>
           <p>• 客服專線：<strong>0800-888-AEROX</strong></p>
           <p>• 服務時間：週一至週日 09:00 - 22:00</p>
-          <p>您也可以直接在此留下手機號碼或問題，專員將在 10 分鐘內為您服務！</p>
+          <p>你也可以直接在此留下手機號碼，專員將在 10 分鐘內致電支援！</p>
         `);
       } else {
         appendMessage(`
-          <p>感謝您的提問！AEROX 客服中心為您提供全天候支援。</p>
-          <p>您可以：</p>
-          <p>1. 領取 3 折尊榮代碼 <strong class="text-[#CCFF00]">GGG777</strong>。</p>
-          <p>2. 前往首頁使用「智能選裝備顧問 (Gear Finder)」。</p>
-          <p>3. 點選下方快速問題按鈕或輸入「真人客服」！</p>
+          <p class="font-bold text-white">『你的雙腿，已經進入打破極限的射程範圍了！』</p>
+          <p>我是 AEROX 官方 AI 顧問——空條承動。全館 7 大運動專區、21 款頂級裝備已全面上陣，輸入 <strong class="text-[#CCFF00]">GGG777</strong> 直接現打 3 折！</p>
+          <p>有任何裝備推薦或挑選問題，儘管問我！ドドド...</p>
         `);
       }
     }

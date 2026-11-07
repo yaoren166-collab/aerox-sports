@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap');
+
+:root {
+  --color-primary: #CCFF00;       /* Volt Lime */
+  --color-primary-glow: rgba(204, 255, 0, 0.45);
+  --color-accent: #00F0FF;        /* Cyber Cyan */
+  --color-danger: #FF3366;        /* Electric Red */
+  --color-bg-dark: #08090C;       /* Ultra Deep Space Black */
+  --color-surface: #101217;       /* Card Surface */
+  --color-surface-hover: #191C24;
+  --color-border: #232733;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-bg-dark);
+  color: #F1F5F9;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #08090C;
+}
+::-webkit-scrollbar-thumb {
+  background: #232733;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #CCFF00;
+}
+
+/* Glow Effects & Accents */
+.glow-primary {
+  box-shadow: 0 0 25px var(--color-primary-glow);
+}
+
+.glow-text-primary {
+  text-shadow: 0 0 16px rgba(204, 255, 0, 0.6);
+}
+
+.glow-border:hover {
+  border-color: #CCFF00;
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.25);
+}
+
+/* Dynamic Gradient Borders */
+.gradient-border-bottom {
+  position: relative;
+}
+.gradient-border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #CCFF00, #00F0FF, transparent);
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(16, 18, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-dropdown {
+  background: rgba(12, 14, 18, 0.94);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Speed Lines Background Pattern */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(204, 255, 0, 0.08) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+.bg-speed-lines {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.015),
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 14px
+  );
+}
+
+/* Kinetic Athletic Badges */
+.badge-volt {
+  background: #CCFF00;
+  color: #000;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-outline {
+  border: 1px solid #CCFF00;
+  color: #CCFF00;
+  font-weight: 700;
+}
+
+/* Card hover animation */
+.product-card {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover {
+  transform: translateY(-6px);
+}
+.product-card:hover .product-img {
+  transform: scale(1.06);
+}
+
+/* Clip Path Slanted Elements for Athletic Edge */
+.clip-slanted {
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+}
+.clip-slanted-right {
+  clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.clip-angled-btn {
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Pulse Glow Animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Confetti particles */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #CCFF00;
+  position: absolute;
+  top: -10px;
+  z-index: 99999;
+}

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEROX® ATHLETICS | 官方旗艦網站 - 突破極限 ‧ 重構動能</title>
+  <meta name="description" content="AEROX 頂級專業運動品牌，搭載專利全掌碳板與超臨界物理發泡技術，為競速路跑、高強度訓練與越野機能而生。">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              volt: '#CCFF00',
+              cyan: '#00F0FF',
+              red: '#FF3366',
+              dark: '#08090C',
+              surface: '#101217',
+              border: '#232733'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='10,80 50,20 90,80 60,80 50,45 40,80' fill='%23CCFF00'/></svg>">
+</head>
+<body class="bg-[#08090C] text-slate-100 antialiased selection:bg-[#CCFF00] selection:text-black">
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="bg-gradient-to-r from-black via-[#141720] to-black border-b border-white/5 py-2 px-4 overflow-hidden text-xs">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="hidden md:flex items-center gap-2 text-slate-400">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#CCFF00] animate-ping"></span>
+        <span>AEROX LAB 旗艦創新技術發表會進行中</span>
+      </div>
+      <div class="flex-1 md:flex-initial text-center text-slate-200 font-medium">
+        ⚡ 全館結帳滿 <span class="text-[#CCFF00] font-bold">NT$ 2,500 即享免運</span> | 輸入代碼 <span class="bg-[#CCFF00]/10 text-[#CCFF00] font-mono px-2 py-0.5 rounded border border-[#CCFF00]/30 font-bold">AEROX2026</span> 現折 15%
+      </div>
+      <div class="hidden lg:flex items-center gap-4 text-slate-400 text-[11px]">
+        <a href="#about-manifesto" class="hover:text-white transition-colors">品牌專利</a>
+        <span>•</span>
+        <a href="#stores" class="hover:text-white transition-colors">門市據點</a>
+        <span>•</span>
+        <span class="text-[#CCFF00] font-bold">30 天無條件試跑保證</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STICKY HEADER & NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-[#08090C]/85 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#12141a] to-[#202533] border border-[#CCFF00]/40 flex items-center justify-center group-hover:border-[#CCFF00] group-hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] transition-all duration-300">
+          <!-- Speed Icon / Wing -->
+          <svg class="w-6 h-6 text-[#CCFF00] transform -rotate-12 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12,2 2,22 9,22 12,12 15,22 22,22"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-3xl font-black tracking-wider text-white group-hover:text-[#CCFF00] transition-colors leading-none">
+            AEROX<span class="text-[#CCFF00]">®</span>
+          </span>
+          <span class="text-[9px] tracking-[0.25em] text-slate-400 uppercase font-bold -mt-0.5">ATHLETICS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-bold tracking-wide">
+        <a href="#products-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          本季新品
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#CCFF00] transition-all group-hover:w-full"></span>
+        </a>
+        <a href="#products-section" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='running')" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          路跑競速
+        </a>
+        <a href="#products-section" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='training')" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          體能訓練
+        </a>
+        <a href="#tech-labs" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
+          創新黑科技
+        </a>
+        <a href="#gear-finder-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          智能裝備顧問
+        </a>
+        <a href="#athletes-section" class="text-slate-300 hover:text-[#CCFF00] transition-colors py-2 relative group">
+          簽約運動員
+        </a>
+      </nav>
+
+      <!-- Right Utility Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Live Search Trigger -->
+        <button class="search-trigger flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-xs transition-colors" title="搜尋裝備 (Ctrl+K)">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="hidden sm:inline">搜尋裝備...</span>
+          <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-black/40 text-slate-400 rounded border border-white/10 font-mono">⌘K</kbd>
+        </button>
+
+        <!-- Currency Selector -->
+        <div class="relative hidden sm:block">
+          <select id="currency-select" class="bg-white/5 border border-white/10 text-slate-200 text-xs rounded-lg px-2.5 py-2 font-bold focus:outline-none focus:border-[#CCFF00] transition-colors cursor-pointer">
+            <option value="TWD" class="bg-[#12141A] text-white">TWD (NT$)</option>
+            <option value="USD" class="bg-[#12141A] text-white">USD ($)</option>
+            <option value="EUR" class="bg-[#12141A] text-white">EUR (€)</option>
+            <option value="JPY" class="bg-[#12141A] text-white">JPY (¥)</option>
+          </select>
+        </div>
+
+        <!-- Wishlist Button -->
+        <button id="wishlist-open-btn" class="relative p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors" title="願望清單">
+          <svg class="w-5 h-5 text-slate-300 hover:text-[#FF3366] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <span id="wishlist-badge" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#FF3366] text-white text-[10px] font-black rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <!-- Shopping Cart Button -->
+        <button id="cart-open-btn" class="relative px-3.5 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] active:scale-95 text-black font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-[#CCFF00]/15" title="購物車">
+          <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span class="hidden md:inline font-black">購物車</span>
+          <span id="cart-badge" class="w-5 h-5 bg-black text-[#CCFF00] text-[10px] font-black rounded-full flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-black">
+    <!-- Hero Background Image & Dynamic Gradient Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1920&q=85" alt="AEROX Performance Runner" class="w-full h-full object-cover object-top filter brightness-[0.45] contrast-125 scale-105 animate-float duration-1000">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#08090C] via-[#08090C]/60 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#08090C] via-transparent to-[#08090C]/80"></div>
+      <div class="absolute inset-0 bg-speed-lines opacity-40"></div>
+    </div>
+
+    <!-- Glowing Cyber Flare -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#CCFF00]/15 blur-[140px] pointer-events-none rounded-full"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
+      
+      <!-- Top Tagline Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#CCFF00]/40 text-[#CCFF00] text-xs font-black uppercase tracking-[0.2em] mb-6 shadow-lg shadow-[#CCFF00]/10">
+        <span class="w-2 h-2 rounded-full bg-[#CCFF00] animate-ping"></span>
+        2026 NEXT-GEN PERFORMANCE SERIES
+      </div>
+
+      <!-- High-Impact Headline -->
+      <h1 class="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tight uppercase leading-[0.92] mb-6 drop-shadow-2xl">
+        IGNITE THE <br class="hidden sm:inline">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#CCFF00] to-[#00F0FF]">
+          IMPOSSIBLE
+        </span>
+      </h1>
+
+      <p class="max-w-2xl text-base sm:text-xl text-slate-300 font-normal mb-10 leading-relaxed">
+        突破重力限制，重構運動動能。AEROX 搭載全掌雙叉碳纖推進板與超臨界氮氣物理發泡中底，為每一位挑戰巔峰的跑者而造。
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+        <a href="#products-section" class="w-full sm:w-auto px-8 py-4 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black uppercase tracking-wider text-sm rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-2xl shadow-[#CCFF00]/25 flex items-center justify-center gap-2.5">
+          <span>立即選購旗艦戰靴</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+        <a href="#gear-finder-section" class="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/15 text-white font-bold uppercase tracking-wider text-sm rounded-xl border border-white/15 backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 text-[#00F0FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <span>智能 3 步裝備挑選</span>
+        </a>
+      </div>
+
+      <!-- KPI Live Stat Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 w-full max-w-4xl pt-8 border-t border-white/10">
+        <div class="text-center p-3">
+          <div class="text-3xl md:text-4xl font-display font-black text-[#CCFF00] tracking-wide">+38%</div>
+          <div class="text-xs text-slate-400 font-semibold mt-1">前掌極速推動力回饋</div>
+        </div>
+        <div class="text-center p-3">
+          <div class="text-3xl md:text-4xl font-display font-black text-white tracking-wide">168g</div>
+          <div class="text-xs text-slate-400 font-semibold mt-1">超羽量化單鞋配重</div>
+        </div>
+        <div class="text-center p-3">
+          <div class="text-3xl md:text-4xl font-display font-black text-[#00F0FF] tracking-wide">89.2%</div>
+          <div class="text-xs text-slate-400 font-semibold mt-1">超臨界物理發泡能量釋放</div>
+        </div>
+        <div class="text-center p-3">
+          <div class="text-3xl md:text-4xl font-display font-black text-white tracking-wide">100+</div>
+          <div class="text-xs text-slate-400 font-semibold mt-1">奧運與菁英運動員實測</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BENTO CATEGORIES SHOWCASE ================= -->
+  <section class="py-20 bg-[#08090C] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-black tracking-[0.2em] text-[#CCFF00] uppercase">EXPLORE COLLECTIONS</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">頂級運動領域分類</h2>
+        </div>
+        <p class="text-sm text-slate-400 max-w-md mt-2 md:mt-0">
+          針對不同運動場域嚴苛考驗，以航太級結構與人體工學調校，打造極致機能表現。
+        </p>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Large Card: Road Marathon -->
+        <div class="md:col-span-2 relative h-96 rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-[#CCFF00]/50 transition-all duration-500" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='running')">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80" alt="Marathon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 bg-[#CCFF00] text-black font-black text-xs uppercase tracking-wider rounded">SPEED RACING</span>
+            <h3 class="text-2xl sm:text-3xl font-black text-white mt-2 mb-1">疾速馬拉松競賽系列</h3>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-lg mb-4">專為打破個人 PB 與長距離巡航打造，全掌碳板提供強勁彈射推進。</p>
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#CCFF00] group-hover:translate-x-1 transition-transform">
+              探索競速戰靴 →
+            </span>
+          </div>
+        </div>
+
+        <!-- Medium Card: Gym & Strength -->
+        <div class="relative h-96 rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-[#CCFF00]/50 transition-all duration-500" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='training')">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Strength Training" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 bg-white/20 text-white backdrop-blur-md font-black text-xs uppercase tracking-wider rounded">STRENGTH LAB</span>
+            <h3 class="text-2xl font-black text-white mt-2 mb-1">核心負重與力量訓練</h3>
+            <p class="text-xs text-slate-300 mb-4">堅如磐石的側向穩定底盤，深蹲硬舉無懼形變。</p>
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#CCFF00] group-hover:translate-x-1 transition-transform">
+              檢視訓練裝備 →
+            </span>
+          </div>
+        </div>
+
+        <!-- Medium Card: Trail & Outdoor -->
+        <div class="relative h-80 rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-[#CCFF00]/50 transition-all duration-500" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='outdoor')">
+          <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80" alt="Trail Outdoor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 bg-[#00F0FF] text-black font-black text-xs uppercase tracking-wider rounded">ALL-TERRAIN</span>
+            <h3 class="text-xl font-black text-white mt-2 mb-1">全天候越野機能</h3>
+            <p class="text-xs text-slate-300 mb-2">GORE-TEX 授權防水透氣與深爪大底。</p>
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#00F0FF] group-hover:translate-x-1 transition-transform">
+              征服崎嶇野徑 →
+            </span>
+          </div>
+        </div>
+
+        <!-- Large Card: Performance Apparel -->
+        <div class="md:col-span-2 relative h-80 rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-[#CCFF00]/50 transition-all duration-500" onclick="window.aeroxApp && (window.aeroxApp.activeCategory='apparel')">
+          <img src="https://images.unsplash.com/photo-1506152983158-b4a74a01c721?auto=format&fit=crop&w=1200&q=80" alt="Performance Apparel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 bg-white/20 text-white backdrop-blur-md font-black text-xs uppercase tracking-wider rounded">PRO APPAREL</span>
+            <h3 class="text-2xl font-black text-white mt-2 mb-1">無感壓縮與急速排汗科技服飾</h3>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-lg mb-4">人體熱成像智慧分區散熱，時刻維持體表乾爽清涼。</p>
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#CCFF00] group-hover:translate-x-1 transition-transform">
+              瀏覽機能服飾 →
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCT CATALOG SECTION ================= -->
+  <section id="products-section" class="py-24 bg-[#0B0C10] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-white/10 gap-4">
+        <div>
+          <span class="text-xs font-black tracking-[0.2em] text-[#CCFF00] uppercase">OFFICIAL GEAR DROP</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">官方熱門旗艦裝備</h2>
+        </div>
+
+        <!-- Sort Select -->
+        <div class="flex items-center gap-3">
+          <label for="sort-select" class="text-xs font-bold text-slate-400 uppercase">排序方式:</label>
+          <select id="sort-select" class="bg-white/5 border border-white/10 text-white text-xs rounded-lg px-3 py-2 font-bold focus:outline-none focus:border-[#CCFF00] cursor-pointer">
+            <option value="featured" class="bg-[#12141A]">推薦排序 (熱門新品)</option>
+            <option value="price-low" class="bg-[#12141A]">價格：由低到高</option>
+            <option value="price-high" class="bg-[#12141A]">價格：由高到低</option>
+            <option value="rating" class="bg-[#12141A]">評價最高 (運動員認證)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Product Cards injected by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PROPRIETARY TECH LABS ================= -->
+  <section id="tech-labs" class="py-24 bg-[#08090C] relative overflow-hidden border-t border-b border-white/5">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#CCFF00]/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-[#00F0FF]/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black tracking-[0.25em] text-[#CCFF00] uppercase">AEROX INNOVATION LAB</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2 mb-4">
+          四大核心專利黑科技
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+          拒絕妥協。AEROX 實驗室聯合生物力學博士與奧運國手，歷經 1,200 小時風洞與地面壓力測試，重寫運動工程學極限。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Tech Card 1 -->
+        <div class="p-8 rounded-2xl bg-[#101217] border border-white/5 hover:border-[#CCFF00]/50 transition-all duration-300 relative group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-[#CCFF00]/10 text-[#CCFF00] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <div class="text-2xl font-black text-[#CCFF00] font-display mb-1">+38% 推進動能</div>
+            <h3 class="text-lg font-black text-white mb-2">CARBONX-BLADE™</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              專利雙叉仿生碳纖維全掌板，模擬獵豹掌骨回彈，極限壓制著地形變，將衝擊動能轉化為直線澎湃彈射。
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800 text-[11px] text-slate-300 font-mono">
+            重量: 僅 14g | 航太高剛性
+          </div>
+        </div>
+
+        <!-- Tech Card 2 -->
+        <div class="p-8 rounded-2xl bg-[#101217] border border-white/5 hover:border-[#00F0FF]/50 transition-all duration-300 relative group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-[#00F0FF]/10 text-[#00F0FF] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <div class="text-2xl font-black text-[#00F0FF] font-display mb-1">89.2% 能量反饋</div>
+            <h3 class="text-lg font-black text-white mb-2">NITROFOAM™ GEN3</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              超臨界純氮物理高壓發泡，氣孔均勻緻密。提供長效軟彈腳感，跑步 800 公里性能依然如初。
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800 text-[11px] text-slate-300 font-mono">
+            密度: 0.12g/cm³ | 0 化學溶劑
+          </div>
+        </div>
+
+        <!-- Tech Card 3 -->
+        <div class="p-8 rounded-2xl bg-[#101217] border border-white/5 hover:border-[#CCFF00]/50 transition-all duration-300 relative group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-[#CCFF00]/10 text-[#CCFF00] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="text-2xl font-black text-[#CCFF00] font-display mb-1">-3.2°C 體感降溫</div>
+            <h3 class="text-lg font-black text-white mb-2">BREATHEWEAVE™ 3.0</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              以熱成像大數據為基礎，分區雷射編織微孔透氣鞋面與面料，劇烈衝刺也能維持足部乾爽透氣。
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800 text-[11px] text-slate-300 font-mono">
+            透氣度: 15,000g/m² | 防撕裂
+          </div>
+        </div>
+
+        <!-- Tech Card 4 -->
+        <div class="p-8 rounded-2xl bg-[#101217] border border-white/5 hover:border-[#FF3366]/50 transition-all duration-300 relative group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-[#FF3366]/10 text-[#FF3366] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <div class="text-2xl font-black text-[#FF3366] font-display mb-1">+42% 濕地抓地</div>
+            <h3 class="text-lg font-black text-white mb-2">VORTEX-GRIP™</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              源自賽車級配方的黏性橡膠與仿生微米級吸盤，雨天瀝青路面與濕滑石階也能緊緊咬住地面。
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800 text-[11px] text-slate-300 font-mono">
+            全地形耐磨 | 0 打滑保障
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GEAR FINDER QUIZ ================= -->
+  <section id="gear-finder-section" class="py-24 bg-[#0B0C10] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-black tracking-[0.25em] text-[#CCFF00] uppercase">INTERACTIVE FINDER</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mt-1 mb-3">
+          智慧選裝備顧問 (Gear Finder)
+        </h2>
+        <p class="text-sm text-slate-400">
+          只需回答 3 個簡單問題，AEROX 演算法將依據您的運動項目、腳感偏好與訓練頻率，為您精準推薦最佳裝備！
+        </p>
+      </div>
+
+      <!-- Quiz Interactive Mount Point -->
+      <div id="gear-quiz-container" class="bg-[#101217] p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ATHLETES & TESTIMONIALS ================= -->
+  <section id="athletes-section" class="py-24 bg-[#08090C] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div>
+          <span class="text-xs font-black tracking-[0.2em] text-[#CCFF00] uppercase">PRO ATHLETE ROSTER</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">全球頂尖運動員實測</h2>
+        </div>
+        <p class="text-sm text-slate-400 max-w-md mt-2 md:mt-0">
+          金牌榮耀的背後，是每一次踏步與舉起的極限執著。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Athlete 1 -->
+        <div class="bg-[#101217] rounded-2xl border border-white/5 overflow-hidden flex flex-col justify-between group">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=800&q=80" alt="Che-Yu Lin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#101217] via-transparent to-transparent"></div>
+            <span class="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-black bg-[#CCFF00] text-black rounded uppercase">
+              馬拉松 PB 2:11:45
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-black text-white">林哲宇 (Che-Yu Lin)</h3>
+              <div class="text-xs text-slate-400 font-bold mb-3">全國馬拉松紀錄保持人 / 奧運長跑選手</div>
+              <p class="text-xs text-slate-300 italic leading-relaxed mb-4">
+                「穿上 AEROX SPEED-X，在最後十公里的體力極限時，碳板與中底的推背感就像有一股強大的推力在推著我突破 PB。」
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+              <span>御用戰靴:</span>
+              <strong class="text-white">AEROX SPEED-X ELITE</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete 2 -->
+        <div class="bg-[#101217] rounded-2xl border border-white/5 overflow-hidden flex flex-col justify-between group">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Elena Rostova" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#101217] via-transparent to-transparent"></div>
+            <span class="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-black bg-[#00F0FF] text-black rounded uppercase">
+              Clean & Jerk 140kg
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-black text-white">Elena Rostova</h3>
+              <div class="text-xs text-slate-400 font-bold mb-3">CrossFit Games 總決賽頂級選手</div>
+              <p class="text-xs text-slate-300 italic leading-relaxed mb-4">
+                「深蹲 200 公斤時，你需要的是完全不受形變干擾的絕對支撐。Core-Force 是我見過最穩定、最堅實的訓練戰靴。」
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+              <span>御用戰靴:</span>
+              <strong class="text-white">AEROX CORE-FORCE</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete 3 -->
+        <div class="bg-[#101217] rounded-2xl border border-white/5 overflow-hidden flex flex-col justify-between group">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80" alt="Marcus Vance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#101217] via-transparent to-transparent"></div>
+            <span class="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-black bg-[#FF3366] text-white rounded uppercase">
+              160km 越野超馬總冠軍
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-black text-white">Marcus Vance</h3>
+              <div class="text-xs text-slate-400 font-bold mb-3">UTMB 頂級越野越野跑者</div>
+              <p class="text-xs text-slate-300 italic leading-relaxed mb-4">
+                「在阿爾卑斯山的碎石陡坡上，每一步都關乎生死。Terra-Claw 的抓地力給了我毫無猶豫大步奔馳的底氣。」
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+              <span>御用戰靴:</span>
+              <strong class="text-white">AEROX TERRA-CLAW GTX</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BRAND MANIFESTO & SUSTAINABILITY ================= -->
+  <section id="about-manifesto" class="py-20 bg-[#0B0C10] border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        <div class="p-6 rounded-xl bg-white/5 border border-white/5">
+          <div class="text-3xl font-black text-[#CCFF00] font-display mb-2">30-DAY TRIAL</div>
+          <h4 class="text-lg font-bold text-white mb-2">30 天無條件試跑保障</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            親自上腳跑步實測！若不合腳或推進腳感不符合期待，享 30 天內無條件免費退換貨服務。
+          </p>
+        </div>
+        <div class="p-6 rounded-xl bg-white/5 border border-white/5">
+          <div class="text-3xl font-black text-[#00F0FF] font-display mb-2">ZERO CARBON</div>
+          <h4 class="text-lg font-bold text-white mb-2">永續純淨發泡技術</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            100% 物理發泡製程淘汰有毒化學溶劑，鞋盒包裝全數採用 FSC 認證再生回收紙材。
+          </p>
+        </div>
+        <div class="p-6 rounded-xl bg-white/5 border border-white/5">
+          <div class="text-3xl font-black text-white font-display mb-2">LIFETIME SUPPORT</div>
+          <h4 class="text-lg font-bold text-white mb-2">官方正品結構保證</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            全系列碳板與鞋底享受原廠結構防斷裂保修，每一雙 AEROX 均具備唯一防偽晶片身分證。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEWSLETTER & VIP CLUB ================= -->
+  <section class="py-20 bg-gradient-to-b from-[#08090C] to-black relative border-t border-white/10">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <span class="text-xs font-black tracking-[0.25em] text-[#CCFF00] uppercase">AEROX CLUB</span>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2 mb-4">
+        加入 AEROX 極限菁英俱樂部
+      </h2>
+      <p class="text-sm text-slate-400 max-w-xl mx-auto mb-8">
+        立即訂閱，第一時間獲取限量碳板跑鞋發售通知，並獲贈 <span class="text-[#CCFF00] font-bold">85 折首購迎新折扣代碼</span>！
+      </p>
+
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input id="newsletter-email" type="email" placeholder="輸入您的電子郵件地址..." class="flex-1 px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#CCFF00] transition-colors" required>
+        <button type="submit" class="px-6 py-3.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black uppercase text-xs tracking-wider rounded-xl transition-all shadow-lg shadow-[#CCFF00]/20 whitespace-nowrap">
+          立即免費加入
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= RICH FOOTER ================= -->
+  <footer id="stores" class="bg-black text-slate-400 text-xs border-t border-white/10 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-[#12141a] border border-[#CCFF00]/40 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#CCFF00] transform -rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="12,2 2,22 9,22 12,12 15,22 22,22"/>
+              </svg>
+            </div>
+            <span class="font-display text-2xl font-black text-white tracking-wider">AEROX®</span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm mb-4 leading-relaxed">
+            AEROX ATHLETICS 重構全球運動裝備標準。我們以航太工程學的嚴苛標準打造每一款競速跑鞋與訓練裝備，引爆無界動能。
+          </p>
+          <div class="text-[11px] text-slate-500">
+            官方旗艦店：台北市信義區松壽路 18 號 1F / 專線：0800-888-AEROX
+          </div>
+        </div>
+
+        <!-- Col 2: Products -->
+        <div>
+          <h4 class="text-xs font-black uppercase text-white tracking-wider mb-4">系列裝備</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#products-section" class="hover:text-[#CCFF00] transition-colors">碳板競速路跑鞋</a></li>
+            <li><a href="#products-section" class="hover:text-[#CCFF00] transition-colors">長距離緩震跑鞋</a></li>
+            <li><a href="#products-section" class="hover:text-[#CCFF00] transition-colors">全方位體能訓練鞋</a></li>
+            <li><a href="#products-section" class="hover:text-[#CCFF00] transition-colors">高階加壓壓縮衣</a></li>
+            <li><a href="#products-section" class="hover:text-[#CCFF00] transition-colors">越野防水泥濘大底</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Innovation -->
+        <div>
+          <h4 class="text-xs font-black uppercase text-white tracking-wider mb-4">創新科技</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#tech-labs" class="hover:text-[#CCFF00] transition-colors">CarbonX 碳纖維板</a></li>
+            <li><a href="#tech-labs" class="hover:text-[#CCFF00] transition-colors">NitroFoam 超臨界發泡</a></li>
+            <li><a href="#tech-labs" class="hover:text-[#CCFF00] transition-colors">BreatheWeave 雷射織面</a></li>
+            <li><a href="#tech-labs" class="hover:text-[#CCFF00] transition-colors">Vortex-Grip 抓地橡膠</a></li>
+            <li><a href="#gear-finder-section" class="hover:text-[#CCFF00] transition-colors">智慧配對選鞋系統</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Service & Legal -->
+        <div>
+          <h4 class="text-xs font-black uppercase text-white tracking-wider mb-4">服務支援</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="hover:text-[#CCFF00] transition-colors">30 天免費退換申請</a></li>
+            <li><a href="#" class="hover:text-[#CCFF00] transition-colors">訂單即時追蹤查詢</a></li>
+            <li><a href="#" class="hover:text-[#CCFF00] transition-colors">國際鞋碼尺寸對照</a></li>
+            <li><a href="#" class="hover:text-[#CCFF00] transition-colors">原廠防偽序號認證</a></li>
+            <li><a href="#" class="hover:text-[#CCFF00] transition-colors">常見問題 FAQ</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <div>
+          © 2026 AEROX ATHLETICS INC. ALL RIGHTS RESERVED. 版權所有 翻印必究
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-slate-300 transition-colors">隱私權政策</a>
+          <a href="#" class="hover:text-slate-300 transition-colors">服務條款</a>
+          <a href="#" class="hover:text-slate-300 transition-colors">配送與退貨細則</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SLIDE-OUT CART DRAWER ================= -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0F1116] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <!-- Header -->
+    <div class="p-5 border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#CCFF00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <h3 class="text-base font-black text-white tracking-wide uppercase">官方購物車</h3>
+      </div>
+      <button id="cart-close-btn" class="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <!-- Free Shipping Notice Bar -->
+    <div id="cart-shipping-notice" class="px-5 py-3 border-b border-white/5 bg-[#141720]">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Items List Scroll Area -->
+    <div id="cart-items-list" class="flex-1 overflow-y-auto p-5 space-y-2">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Coupon Input Area -->
+    <div class="p-4 border-t border-white/10 bg-[#12141A]">
+      <div class="flex items-center gap-2">
+        <input id="coupon-input" type="text" placeholder="輸入折扣代碼 (例如 AEROX2026)" class="flex-1 px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-xs text-white uppercase placeholder-slate-500 focus:outline-none focus:border-[#CCFF00]">
+        <button id="apply-coupon-btn" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase rounded-lg transition-colors">
+          套用
+        </button>
+      </div>
+    </div>
+
+    <!-- Totals Summary & Checkout CTA -->
+    <div class="p-5 border-t border-white/10 bg-[#0B0C10] space-y-2.5">
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <span>商品小計:</span>
+        <span id="cart-subtotal" class="font-bold text-white">NT$ 0</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <span>折扣優惠:</span>
+        <span id="cart-discount" class="font-bold text-[#CCFF00]">-NT$ 0</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <span>運費試算:</span>
+        <span id="cart-shipping" class="font-bold text-white">NT$ 0</span>
+      </div>
+      <div class="flex items-center justify-between text-sm font-black text-white pt-2 border-t border-slate-800">
+        <span>應付總額:</span>
+        <span id="cart-total" class="text-xl text-[#CCFF00]">NT$ 0</span>
+      </div>
+
+      <button id="cart-checkout-btn" class="w-full mt-3 py-4 bg-[#CCFF00] hover:bg-[#b8e600] active:scale-95 text-black font-black uppercase text-sm tracking-wider rounded-xl transition-all shadow-xl shadow-[#CCFF00]/20 flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        前往安全結帳
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= SLIDE-OUT WISHLIST DRAWER ================= -->
+  <div id="wishlist-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <aside id="wishlist-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0F1116] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-5 border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#FF3366]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+        <h3 class="text-base font-black text-white tracking-wide uppercase">願望清單收藏</h3>
+      </div>
+      <button id="wishlist-close-btn" class="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <div id="wishlist-items-list" class="flex-1 overflow-y-auto p-5">
+      <!-- Injected by JS -->
+    </div>
+  </aside>
+
+  <!-- ================= QUICK VIEW MODAL ================= -->
+  <div id="quickview-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div id="quickview-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-md"></div>
+    <div class="relative w-full max-w-4xl bg-[#12141A] rounded-2xl border border-white/15 overflow-hidden shadow-2xl z-10 max-h-[92vh] overflow-y-auto">
+      <button id="quickview-close" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+        ✕
+      </button>
+      <div id="quickview-content">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LIVE SEARCH MODAL ================= -->
+  <div id="search-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4">
+    <div class="fixed inset-0 bg-black/85 backdrop-blur-md" onclick="document.getElementById('search-modal').classList.add('hidden')"></div>
+    <div class="relative w-full max-w-2xl bg-[#12141A] rounded-2xl border border-white/15 overflow-hidden shadow-2xl z-10">
+      <div class="p-4 border-b border-white/10 flex items-center gap-3">
+        <svg class="w-5 h-5 text-[#CCFF00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input id="search-input" type="text" placeholder="搜尋 AEROX 裝備、碳板鞋、風衣、水壺..." class="flex-1 bg-transparent text-white text-sm font-semibold focus:outline-none placeholder-slate-500">
+        <button id="search-close" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-white/5">ESC</button>
+      </div>
+      <div id="search-results" class="max-h-96 overflow-y-auto p-3">
+        <div class="py-8 text-center text-slate-500 text-xs">
+          輸入商品名稱、技術或運動關鍵字（例如：碳板、GTX、跑鞋、訓練衣）
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-black/85 backdrop-blur-md"></div>
+    <div class="relative w-full max-w-lg bg-[#12141A] rounded-2xl border border-white/15 overflow-hidden shadow-2xl z-10 max-h-[90vh] overflow-y-auto">
+      <div class="p-5 border-b border-white/10 flex items-center justify-between">
+        <h3 class="text-base font-black text-white uppercase tracking-wide">AEROX 官方快速結帳</h3>
+        <button id="close-checkout-btn" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <div id="checkout-modal-body" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">收件人姓名</label>
+          <input type="text" value="陳大文" class="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">聯絡電話</label>
+          <input type="tel" value="0912-345-678" class="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">配送地址 (台灣本島極速配送)</label>
+          <input type="text" value="台北市信義區信義路五段 7 號 88 樓" class="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">付款方式</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <label class="flex items-center gap-2 p-2.5 rounded bg-white/5 border border-[#CCFF00]/40 cursor-pointer text-white">
+              <input type="radio" name="payment" checked class="text-[#CCFF00]">
+              <span>線上信用卡 (Apple Pay)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded bg-white/5 border border-white/10 cursor-pointer text-slate-300">
+              <input type="radio" name="payment">
+              <span>貨到付款 (黑貓宅急便)</span>
+            </label>
+          </div>
+        </div>
+        <div class="pt-4 border-t border-slate-800">
+          <button id="confirm-order-btn" class="w-full py-4 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black uppercase text-sm tracking-wider rounded-xl transition-all shadow-xl shadow-[#CCFF00]/25">
+            確認送出訂單並完成支付
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION MOUNT ================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

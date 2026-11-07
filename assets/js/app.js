@@ -931,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
         couponInput.value = '';
         updateCartUI();
       } else {
-        showToast('無效的折扣碼，請確認後重試 (提示：試試 AEROX2026)', 'error');
+        showToast('無效的折扣碼，請確認後重試 (提示：試試 GGG777 或 AEROX2026)', 'error');
       }
     });
   }

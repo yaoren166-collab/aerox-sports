@@ -398,6 +398,7 @@ window.AEROX_DATA = {
   ],
 
   coupons: {
+    'GGG777': { discount: 0.70, desc: 'VIP 專屬尊榮 3 折優惠券 (現省 70%)' },
     'AEROX2026': { discount: 0.15, desc: '全館 85 折優惠券 (現省 15%)' },
     'FREESHIP': { discount: 0, freeShipping: true, desc: '全館免運費優惠' },
     'VIP10': { discount: 0.10, desc: 'VIP 會員專屬 9 折優惠' }

@@ -42,7 +42,10 @@
         <span>AEROX LAB 旗艦創新技術發表會進行中</span>
       </div>
       <div class="flex-1 md:flex-initial text-center text-slate-200 font-medium">
-        ⚡ 全館結帳滿 <span class="text-[#CCFF00] font-bold">NT$ 2,500 即享免運</span> | 輸入專屬代碼 <span class="bg-[#CCFF00]/10 text-[#CCFF00] font-mono px-2 py-0.5 rounded border border-[#CCFF00]/30 font-bold">GGG777</span> 享 3 折超狂尊榮優惠！
+        ⚡ 全館結帳滿 <span class="text-[#CCFF00] font-bold">NT$ 2,500 即享免運</span> | 
+        <button type="button" onclick="window.aeroxApp && (window.aeroxApp.applyCouponCode('GGG777'), window.aeroxApp.openCartDrawer())" class="inline-flex items-center gap-1.5 bg-[#CCFF00] hover:bg-[#b8e600] active:scale-95 text-black font-black text-[11px] px-3 py-0.5 rounded-full shadow-md hover:shadow-[#CCFF00]/40 transition-all cursor-pointer ml-1">
+          🔥 點此直接套用【GGG777】現折 70% (打 3 折)！
+        </button>
       </div>
       <div class="hidden lg:flex items-center gap-4 text-slate-400 text-[11px]">
         <a href="#about-manifesto" class="hover:text-white transition-colors">品牌專利</a>
@@ -668,10 +671,19 @@
 
     <!-- Coupon Input Area -->
     <div class="p-4 border-t border-white/10 bg-[#12141A]">
+      <div id="cart-coupon-status" class="mb-2.5 hidden">
+        <!-- Injected by JS -->
+      </div>
       <div class="flex items-center gap-2">
         <input id="coupon-input" type="text" placeholder="輸入折扣代碼 (例如 GGG777 享 3 折)" class="flex-1 px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-xs text-white uppercase placeholder-slate-500 focus:outline-none focus:border-[#CCFF00]">
-        <button id="apply-coupon-btn" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase rounded-lg transition-colors">
+        <button id="apply-coupon-btn" class="px-4 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-black text-xs uppercase rounded-lg transition-colors shadow">
           套用
+        </button>
+      </div>
+      <div class="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
+        <span>熱門推薦:</span>
+        <button type="button" onclick="window.aeroxApp && window.aeroxApp.applyCouponCode('GGG777')" class="px-2 py-0.5 rounded bg-[#CCFF00]/15 hover:bg-[#CCFF00]/25 border border-[#CCFF00]/40 text-[#CCFF00] font-black cursor-pointer transition-all">
+          🔥 點此直接套用【GGG777】3 折券
         </button>
       </div>
     </div>
@@ -795,8 +807,8 @@
   <!-- ================= TOAST NOTIFICATION MOUNT ================= -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
-  <!-- Scripts -->
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/app.js"></script>
+  <!-- Scripts (Versioned for cache-busting) -->
+  <script src="assets/js/data.js?v=20261107-1103"></script>
+  <script src="assets/js/app.js?v=20261107-1103"></script>
 </body>
 </html>

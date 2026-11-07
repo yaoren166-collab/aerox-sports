@@ -2,9 +2,17 @@
  * AEROX SPORTS OFFICIAL - CORE APPLICATION LOGIC
  */
 
+// Fallback & Standard Coupon Codes Dictionary
+const GLOBAL_COUPONS_MAP = {
+  'GGG777': { discount: 0.70, desc: 'VIP 專屬尊榮 3 折優惠券 (現省 70%)' },
+  'AEROX2026': { discount: 0.15, desc: '全館 85 折優惠券 (現省 15%)' },
+  'FREESHIP': { discount: 0, freeShipping: true, desc: '全館免運費優惠' },
+  'VIP10': { discount: 0.10, desc: 'VIP 會員專屬 9 折優惠' }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  const data = window.AEROX_DATA;
-  if (!data) return;
+  const data = window.AEROX_DATA || {};
+  const savedCoupon = JSON.parse(localStorage.getItem('aerox_coupon') || 'null');
 
   // App State
   const state = {
@@ -15,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sortBy: 'featured',
     cart: JSON.parse(localStorage.getItem('aerox_cart') || '[]'),
     wishlist: JSON.parse(localStorage.getItem('aerox_wishlist') || '[]'),
-    appliedCoupon: null,
+    appliedCoupon: savedCoupon,
+    appliedCouponCode: savedCoupon ? savedCoupon.code : null,
     quizAnswers: {},
     activeProductSelections: {} // productId -> { colorIndex: 0, size: 'US 9' }
   };
@@ -453,9 +462,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalTotal = Math.max(0, subtotal - discount + shippingFee);
 
     if (cartSubtotalEl) cartSubtotalEl.textContent = formatPrice(subtotal);
-    if (cartDiscountEl) cartDiscountEl.textContent = `-${formatPrice(discount)}`;
+    if (cartDiscountEl) {
+      if (discount > 0) {
+        const pctText = state.appliedCoupon.discount === 0.70 ? '打 3 折' : `省 ${Math.round(state.appliedCoupon.discount * 100)}%`;
+        cartDiscountEl.innerHTML = `<span class="text-[#CCFF00] font-black">-${formatPrice(discount)}</span> <span class="text-[10px] bg-[#CCFF00]/20 text-[#CCFF00] border border-[#CCFF00]/40 px-1.5 py-0.5 rounded font-black ml-1">${pctText}</span>`;
+      } else {
+        cartDiscountEl.textContent = `-NT$ 0`;
+      }
+    }
     if (cartShippingEl) cartShippingEl.textContent = shippingFee === 0 ? '免運費' : formatPrice(shippingFee);
     if (cartTotalEl) cartTotalEl.textContent = formatPrice(finalTotal);
+
+    // Coupon status banner inside cart
+    const couponStatusEl = document.getElementById('cart-coupon-status');
+    if (couponStatusEl) {
+      if (state.appliedCoupon) {
+        couponStatusEl.classList.remove('hidden');
+        couponStatusEl.innerHTML = `
+          <div class="flex items-center justify-between p-2.5 bg-[#CCFF00]/10 border border-[#CCFF00]/40 rounded-lg text-xs">
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span class="inline-block w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse flex-shrink-0"></span>
+              <div class="truncate">
+                <span class="font-black text-[#CCFF00]">已啟用【${state.appliedCouponCode || 'GGG777'}】</span>
+                <span class="text-slate-300 text-[11px] ml-1">(${state.appliedCoupon.desc})</span>
+              </div>
+            </div>
+            <button type="button" onclick="window.aeroxApp.removeCoupon()" class="text-xs text-red-400 hover:text-red-300 underline font-bold flex-shrink-0 ml-2">移除</button>
+          </div>
+        `;
+      } else {
+        couponStatusEl.classList.add('hidden');
+        couponStatusEl.innerHTML = '';
+      }
+    }
 
     if (cartShippingNotice) {
       if (shippingFee === 0) {
@@ -912,26 +951,44 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuizStep();
   }
 
-  // Coupon Code application
+  // Direct Coupon Code application function
+  function applyCouponCode(code) {
+    if (!code) {
+      showToast('請輸入折扣代碼（例如 GGG777）', 'error');
+      return;
+    }
+    const cleanCode = code.trim().toUpperCase();
+    const couponMap = Object.assign({}, GLOBAL_COUPONS_MAP, (window.AEROX_DATA && window.AEROX_DATA.coupons) || {});
+
+    if (couponMap[cleanCode]) {
+      state.appliedCoupon = couponMap[cleanCode];
+      state.appliedCouponCode = cleanCode;
+      localStorage.setItem('aerox_coupon', JSON.stringify({ code: cleanCode, ...couponMap[cleanCode] }));
+      showToast(`🎉 成功套用【${cleanCode}】：${couponMap[cleanCode].desc}`);
+      const couponInput = document.getElementById('coupon-input');
+      if (couponInput) couponInput.value = '';
+      updateCartUI();
+    } else {
+      showToast(`無效的代碼「${cleanCode}」，推薦使用：GGG777 享 3 折！`, 'error');
+    }
+  }
+
+  // Coupon Code UI setup
   function setupCoupons() {
     const couponInput = document.getElementById('coupon-input');
     const couponBtn = document.getElementById('apply-coupon-btn');
-    if (!couponBtn || !couponInput) return;
+    if (!couponInput) return;
 
-    couponBtn.addEventListener('click', () => {
-      const code = couponInput.value.trim().toUpperCase();
-      if (!code) {
-        showToast('請輸入折扣代碼', 'error');
-        return;
-      }
+    function handleApply() {
+      applyCouponCode(couponInput.value);
+    }
 
-      if (data.coupons[code]) {
-        state.appliedCoupon = data.coupons[code];
-        showToast(`已成功套用優惠碼【${code}】: ${data.coupons[code].desc}`);
-        couponInput.value = '';
-        updateCartUI();
-      } else {
-        showToast('無效的折扣碼，請確認後重試 (提示：試試 GGG777 或 AEROX2026)', 'error');
+    couponBtn?.addEventListener('click', handleApply);
+
+    couponInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleApply();
       }
     });
   }
@@ -1068,7 +1125,15 @@ document.addEventListener('DOMContentLoaded', () => {
     openQuickView,
     closeQuickView,
     addToCart,
-    toggleWishlist
+    toggleWishlist,
+    applyCouponCode,
+    removeCoupon: () => {
+      state.appliedCoupon = null;
+      state.appliedCouponCode = null;
+      localStorage.removeItem('aerox_coupon');
+      showToast('已移除折扣代碼');
+      updateCartUI();
+    }
   };
 
   // Run initial renders
